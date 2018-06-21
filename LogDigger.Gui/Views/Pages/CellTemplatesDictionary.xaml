@@ -1,0 +1,85 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:columns="clr-namespace:LogDigger.Gui.ViewModels.Columns"
+    xmlns:controls="clr-namespace:LogDigger.Gui.Views.Controls"
+    xmlns:behaviors="clr-namespace:LogDigger.Gui.Views.Behaviors">
+
+    <!--
+    *** Cell templates ***
+    -->
+
+    <DataTemplate DataType="{x:Type columns:LevelCellTemplateVm}">
+        <TextBlock
+            x:Name="xamlLevelTxt"
+            VerticalAlignment="Center"
+            Text="{Binding Path=Level}" />
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding Path=Level}" Value="INFO">
+                <Setter TargetName="xamlLevelTxt" Property="Foreground" Value="CadetBlue" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Level}" Value="WARN">
+                <Setter TargetName="xamlLevelTxt" Property="Foreground" Value="Orange" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Level}" Value="ERROR">
+                <Setter TargetName="xamlLevelTxt" Property="Foreground" Value="OrangeRed" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Level}" Value="FATAL">
+                <Setter TargetName="xamlLevelTxt" Property="Foreground" Value="Red" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=Level}" Value="DEBUG">
+                <Setter TargetName="xamlLevelTxt" Property="Foreground" Value="Olive" />
+            </DataTrigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type columns:DateCellTemplateVm}">
+        <StackPanel VerticalAlignment="Center">
+            <TextBlock
+                FontSize="10"
+                Foreground="DarkGray"
+                Text="{Binding Path=Date, StringFormat=dd/MM/yyyy}" />
+            <TextBlock Text="{Binding Path=Date, StringFormat=HH:mm:ss.fff}" />
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type columns:DefaultCellTemplateVm}">
+        <TextBlock Text="{Binding Path=Content}" />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type columns:HeaderedCellTemplateVm}">
+        <Grid VerticalAlignment="Center">
+            <controls:DeferredContent x:Name="xamlFullContent" Content="{x:Null}">
+                <controls:DeferredContent.DeferredContentTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <TextBlock
+                                FontSize="10"
+                                Foreground="Gray"
+                                Text="{Binding Path=Logger}"
+                                TextTrimming="CharacterEllipsis" />
+                            <ae:TextEditor
+                                x:Name="xamlTbContent"
+                                Grid.Row="1"
+                                Background="Transparent"
+                                HorizontalScrollBarVisibility="Disabled"
+                                IsReadOnly="True"
+                                VerticalScrollBarVisibility="Disabled">
+                                <i:Interaction.Behaviors>
+                                    <behaviors:AvalonEditBehaviour x:Name="xamlTextBehaviour" GiveMeTheText="{Binding Path=Content, Mode=OneWay}" />
+                                    <behaviors:AvalonHighlightBehavior HighlightSearches="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:DataGridEx}}, Path=DataContext.HighlightSearches}" />
+                                </i:Interaction.Behaviors>
+                            </ae:TextEditor>
+                        </Grid>
+                    </DataTemplate>
+                </controls:DeferredContent.DeferredContentTemplate>
+            </controls:DeferredContent>
+        </Grid>
+    </DataTemplate>
+</ResourceDictionary>

@@ -1,0 +1,341 @@
+﻿<Grid
+    x:Class="LogDigger.Gui.Views.LogStructureView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit"
+    xmlns:behaviors="clr-namespace:LogDigger.Gui.Views.Behaviors"
+    xmlns:columns="clr-namespace:LogDigger.Gui.ViewModels.Columns"
+    xmlns:controls="clr-namespace:LogDigger.Gui.Views.Controls"
+    xmlns:converters="clr-namespace:LogDigger.Gui.Views.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:logEntries="clr-namespace:LogDigger.Gui.ViewModels.LogEntries"
+    xmlns:logStructure="clr-namespace:LogDigger.Gui.ViewModels.LogStructure"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:views="clr-namespace:LogDigger.Gui.Views"
+    d:DataContext="{d:DesignInstance logStructure:LogStructureVm}"
+    d:DesignHeight="300"
+    d:DesignWidth="300"
+    mc:Ignorable="d">
+    <Grid.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Pages\CommonDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <DataTemplate x:Key="CellTemplate">
+                <ContentPresenter Content="{Binding}" />
+            </DataTemplate>
+            <!--            <DataTemplate x:Key="HeaderTemplate" DataType="{x:Type columns:IColumnDescriptionVm}">-->
+            <!--                <TextBlock Text="{Binding Name}" />-->
+            <!--            </DataTemplate>-->
+            <DataTemplate x:Key="HeaderTemplate" DataType="{x:Type columns:IColumnDescriptionVm}">
+                <DataTemplate.Resources>
+                    <DataTemplate DataType="{x:Type columns:ACellTemplateVm}">
+                        <ComboBox ItemsSource="{Binding Path=AvailableFields}" SelectedItem="{Binding Path=FieldName}" />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type columns:HeaderedCellTemplateVm}">
+                        <StackPanel>
+                            <ComboBox
+                                md:HintAssist.Hint="Field name"
+                                md:HintAssist.IsFloating="True"
+                                md:TextFieldAssist.DecorationVisibility="Collapsed"
+                                BorderThickness="0"
+                                ItemsSource="{Binding Path=AvailableFields}"
+                                SelectedItem="{Binding Path=FieldName}" />
+                            <ComboBox
+                                md:HintAssist.Hint="Header"
+                                md:HintAssist.IsFloating="True"
+                                md:TextFieldAssist.DecorationVisibility="Collapsed"
+                                BorderThickness="0"
+                                ItemsSource="{Binding Path=AvailableFields}"
+                                SelectedItem="{Binding Path=HeaderFieldName}" />
+                        </StackPanel>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type columns:DefaultCellTemplateVm}">
+                        <ComboBox
+                            md:HintAssist.Hint="Field name"
+                            md:HintAssist.IsFloating="True"
+                            md:TextFieldAssist.DecorationVisibility="Collapsed"
+                            BorderThickness="0"
+                            ItemsSource="{Binding Path=AvailableFields}"
+                            SelectedItem="{Binding Path=FieldName}" />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type columns:DateCellTemplateVm}">
+                        <ComboBox
+                            md:HintAssist.Hint="Field name"
+                            md:HintAssist.IsFloating="True"
+                            md:TextFieldAssist.DecorationVisibility="Collapsed"
+                            BorderThickness="0"
+                            ItemsSource="{Binding Path=AvailableFields}"
+                            SelectedItem="{Binding Path=FieldName}" />
+                    </DataTemplate>
+                </DataTemplate.Resources>
+                <Border
+                    Margin="5"
+                    BorderBrush="{StaticResource ControlBorderBrush}"
+                    BorderThickness="1">
+                    <Grid Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <ComboBox
+                            Grid.Row="0"
+                            Margin="5 0"
+                            md:HintAssist.Hint="Type"
+                            md:HintAssist.IsFloating="True"
+                            md:TextFieldAssist.DecorationVisibility="Collapsed"
+                            BorderThickness="0"
+                            ItemsSource="{Binding Path=AvailableTypes}"
+                            SelectedItem="{Binding Path=TemplateType}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=Name}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <StackPanel
+                            Grid.Row="1"
+                            Margin="5"
+                            Orientation="Horizontal">
+                            <CheckBox IsChecked="{Binding Path=HasOverlook}" />
+                            <TextBlock Margin="5 0 0 0" Text="Overlook" />
+                        </StackPanel>
+                        <StackPanel
+                            Grid.Row="2"
+                            Margin="5"
+                            Orientation="Horizontal">
+                            <ComboBox ItemsSource="{Binding Path=FilterTypes}" SelectedItem="{Binding Path=FilterType}" />
+                            <TextBlock Margin="5 0 0 0" Text="Filterable" />
+                        </StackPanel>
+                        <ContentPresenter
+                            Grid.Row="3"
+                            Margin="5"
+                            Content="{Binding Path=Template}" />
+                    </Grid>
+                </Border>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Grid.Resources>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition />
+    </Grid.ColumnDefinitions>
+    <Grid Grid.Column="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock>
+            <TextBlock.Text>
+                <MultiBinding StringFormat="{}{0}/{1} OK">
+                    <Binding Path="ParsedFilesCount" />
+                    <Binding Path="TotalFilesCount" />
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+        <ListBox
+            Grid.Row="1"
+            Margin="5"
+            Background="Transparent"
+            BorderThickness="1"
+            BorderBrush="{StaticResource ControlBorderBrush}"
+            MaxWidth="250"
+            ItemsSource="{Binding Path=Files}"
+            SelectedItem="{Binding Path=SelectedFile}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Height="35" VerticalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <md:PackIcon
+                            x:Name="xamlIcon"
+                            Margin="10"
+                            VerticalAlignment="Center" />
+                        <ProgressBar
+                            x:Name="xamlProgress"
+                            IsIndeterminate="True"
+                            Style="{DynamicResource MaterialDesignCircularProgressBar}"
+                            Value="35" />
+                        <TextBlock
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            Text="{Binding Path=File.FileName}" />
+                    </Grid>
+                    <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding Path=State}" Value="{x:Static logStructure:ParsingState.Ok}">
+                            <Setter TargetName="xamlProgress" Property="Visibility" Value="{x:Static Visibility.Collapsed}" />
+                            <Setter TargetName="xamlIcon" Property="Visibility" Value="{x:Static Visibility.Visible}" />
+                            <Setter TargetName="xamlIcon" Property="Kind" Value="{x:Static md:PackIconKind.Check}" />
+                            <Setter TargetName="xamlIcon" Property="Background" Value="MediumSeaGreen" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=State}" Value="{x:Static logStructure:ParsingState.Failed}">
+                            <Setter TargetName="xamlProgress" Property="Visibility" Value="{x:Static Visibility.Collapsed}" />
+                            <Setter TargetName="xamlIcon" Property="Visibility" Value="{x:Static Visibility.Visible}" />
+                            <Setter TargetName="xamlIcon" Property="Kind" Value="{x:Static md:PackIconKind.Close}" />
+                            <Setter TargetName="xamlIcon" Property="Background" Value="OrangeRed" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=State}" Value="{x:Static logStructure:ParsingState.NotDone}">
+                            <Setter TargetName="xamlProgress" Property="Visibility" Value="{x:Static Visibility.Collapsed}" />
+                            <Setter TargetName="xamlIcon" Property="Visibility" Value="{x:Static Visibility.Collapsed}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=State}" Value="{x:Static logStructure:ParsingState.Running}">
+                            <Setter TargetName="xamlProgress" Property="Visibility" Value="{x:Static Visibility.Visible}" />
+                            <Setter TargetName="xamlIcon" Property="Visibility" Value="{x:Static Visibility.Collapsed}" />
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+    <Grid Grid.Column="1">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="100" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ae:TextEditor
+            x:Name="xamlTextEditor"
+            Margin="5"
+            Padding="5"
+            BorderBrush="{StaticResource ControlBorderBrush}"
+            BorderThickness="1"
+            HorizontalScrollBarVisibility="Disabled"
+            VerticalScrollBarVisibility="Auto">
+            <i:Interaction.Behaviors>
+                <behaviors:AvalonEditBehaviour GiveMeTheText="{Binding Path=StringTemplate, Mode=TwoWay}" IsReadOnly="False" />
+            </i:Interaction.Behaviors>
+        </ae:TextEditor>
+
+        <controls:DataGridEx
+            x:Name="xamlDataGrid"
+            Grid.Row="1"
+            Margin="5"
+            behaviors:AttachedColumnBehavior.AttachedCellTemplate="{StaticResource CellTemplate}"
+            behaviors:AttachedColumnBehavior.AttachedColumns="{Binding Path=Columns}"
+            behaviors:AttachedColumnBehavior.HeaderTemplate="{StaticResource HeaderTemplate}"
+            md:DataGridAssist.ColumnHeaderPadding="2"
+            BorderBrush="{StaticResource ControlBorderBrush}"
+            BorderThickness="1"
+            ColumnHeaderStyle="{StaticResource NoStackPanelColumnHeaderStyle}"
+            FrozenColumnCount="1"
+            IsReadOnly="True"
+            ItemsSource="{Binding Path=SelectedFile.PreviewEntries}"
+            SelectionUnit="FullRow"
+            Style="{StaticResource DataGridExLogStyle}">
+            <DataGrid.Resources>
+                <views:BindingProxy x:Key="xamlBindingProxy" Data="{Binding}" />
+                <DataTemplate x:Key="LogContentTemplate" DataType="{x:Type logEntries:LogEntryVm}">
+                    <Grid VerticalAlignment="Center">
+                        <controls:DeferredContent x:Name="xamlFullContent" Content="{x:Null}">
+                            <controls:DeferredContent.DeferredContentTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock
+                                            FontSize="10"
+                                            Foreground="Gray"
+                                            Text="{Binding Path=Logger}"
+                                            TextTrimming="CharacterEllipsis" />
+                                        <ae:TextEditor
+                                            x:Name="xamlTbContent"
+                                            Grid.Row="1"
+                                            Background="Transparent"
+                                            HorizontalScrollBarVisibility="Disabled"
+                                            IsReadOnly="True"
+                                            VerticalScrollBarVisibility="Disabled">
+                                            <i:Interaction.Behaviors>
+                                                <behaviors:AvalonEditBehaviour x:Name="xamlTextBehaviour" GiveMeTheText="{Binding Path=Content, Mode=OneWay}" />
+                                                <behaviors:AvalonHighlightBehavior HighlightSearches="{Binding Source={x:Reference xamlGridRoot}, Path=DataContext.HighlightSearches}" />
+                                            </i:Interaction.Behaviors>
+                                        </ae:TextEditor>
+                                    </Grid>
+                                </DataTemplate>
+                            </controls:DeferredContent.DeferredContentTemplate>
+                        </controls:DeferredContent>
+                    </Grid>
+                </DataTemplate>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header=" " IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="{x:Type logEntries:LogEntryVm}">
+                            <ItemsControl x:Name="xamlHlSummaryItems" ItemsSource="{Binding ElementName=xamlGridRoot, Path=DataContext.HighlightSearches}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <UniformGrid Columns="1" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Rectangle Fill="{Binding Path=Brush}">
+                                            <Rectangle.Visibility>
+                                                <MultiBinding Converter="{converters:ContainsMultiValueConverter InnerConverter={converters:BoolToVisibilityConverter}}">
+                                                    <Binding Path="Text" />
+                                                    <Binding ElementName="xamlHlSummaryItems" Path="DataContext.Content" />
+                                                    <Binding ElementName="xamlHlSummaryItems" Path="DataContext.Id" />
+                                                </MultiBinding>
+                                            </Rectangle.Visibility>
+                                        </Rectangle>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn
+                    Width="110"
+                    CanUserSort="False"
+                    CellTemplate="{StaticResource ModuleTemplate}"
+                    Header="Module"
+                    IsReadOnly="True" />
+            </DataGrid.Columns>
+            <DataGrid.CellStyle>
+                <Style BasedOn="{StaticResource {x:Type DataGridCell}}" TargetType="{x:Type DataGridCell}">
+                    <Setter Property="Padding" Value="10" />
+                </Style>
+            </DataGrid.CellStyle>
+        </controls:DataGridEx>
+
+        <Border
+            Grid.Row="2"
+            Margin="5"
+            BorderBrush="{StaticResource ControlBorderBrush}"
+            BorderThickness="1">
+            <TextBox
+                Margin="5"
+                Background="Transparent"
+                BorderThickness="0"
+                IsReadOnly="True"
+                Text="{Binding Path=SelectedFile.PreviewText}"
+                VerticalScrollBarVisibility="Auto" />
+        </Border>
+
+        <TextBlock
+            Grid.Row="3"
+            Margin="5"
+            Text="{Binding Path=SelectedFile.Path, StringFormat='File parsed: {0}'}" />
+
+        <Button
+            x:Name="xamlBtnParse"
+            Grid.Row="4"
+            Width="100"
+            Height="30"
+            Margin="0 10 0 0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Command="{Binding Path=ParseCommand}"
+            Content="Load" />
+    </Grid>
+</Grid>

@@ -1,0 +1,72 @@
+﻿<Grid
+    x:Class="LogDigger.Gui.Views.Pages.SearchPanelView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:pages="clr-namespace:LogDigger.Gui.ViewModels.Pages"
+    d:DataContext="{d:DesignInstance pages:IHasHighlights}"
+    d:DesignHeight="300"
+    d:DesignWidth="300"
+    mc:Ignorable="d">
+    <ItemsControl ItemsSource="{Binding Path=HighlightSearches}">
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <Grid Background="{Binding Path=Brush}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="90" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox
+                        Margin="10 0"
+                        VerticalAlignment="Center"
+                        Text="{Binding Path=Text, UpdateSourceTrigger=PropertyChanged}" />
+                    <Grid Grid.Column="1" Margin="0 0 0 5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Button
+                            Grid.Column="0"
+                            Height="24"
+                            Margin="0"
+                            Command="{Binding Path=GoToPreviousCommand}"
+                            Style="{DynamicResource MaterialDesignToolButton}">
+                            <md:PackIcon Kind="SkipPrevious" Opacity=".56" />
+                        </Button>
+                        <TextBlock
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Foreground="Gray"
+                            Text="{Binding Path=SelectedIndexForDisplay}" />
+                        <Button
+                            Grid.Row="0"
+                            Grid.Column="2"
+                            Height="24"
+                            Margin="0"
+                            Command="{Binding Path=GoToNextCommand}"
+                            Style="{DynamicResource MaterialDesignToolButton}">
+                            <md:PackIcon Kind="SkipNext" Opacity=".56" />
+                        </Button>
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="3"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Foreground="Gray"
+                            Text="{Binding Path=HighlightPoints.Count, StringFormat={}/ {0}}" />
+                    </Grid>
+                </Grid>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
+</Grid>

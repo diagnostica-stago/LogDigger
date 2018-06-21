@@ -1,0 +1,47 @@
+﻿<Grid
+    x:Class="LogDigger.Gui.Views.ChangeLogView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:converters="clr-namespace:LogDigger.Gui.Views.Converters"
+    xmlns:core="clr-namespace:LogDigger.Gui.ViewModels.Core"
+    MaxWidth="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=ActualWidth, Converter={converters:SubstractConverter Number=40}}"
+    MaxHeight="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=ActualHeight, Converter={converters:SubstractConverter Number=80}}"
+    d:DataContext="{d:DesignInstance core:ChangeLogVm}"
+    mc:Ignorable="d">
+    <Grid.RowDefinitions>
+        <RowDefinition Height="*" />
+        <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock
+            Grid.Row="0"
+            FontSize="20"
+            Text="What's new:" />
+        <ScrollViewer
+            Grid.Row="1"
+            Margin="0 20 0 0"
+            HorizontalScrollBarVisibility="Disabled"
+            VerticalScrollBarVisibility="Auto">
+            <TextBlock Text="{Binding Path=Log}" TextWrapping="Wrap" />
+        </ScrollViewer>
+    </Grid>
+    <Button
+        Grid.Row="1"
+        Margin="20"
+        Command="{x:Static md:DialogHost.CloseDialogCommand}"
+        IsCancel="True"
+        Style="{DynamicResource MaterialDesignFlatButton}">
+        <Button.CommandParameter>
+            <system:Boolean>False</system:Boolean>
+        </Button.CommandParameter>
+        OK
+    </Button>
+</Grid>

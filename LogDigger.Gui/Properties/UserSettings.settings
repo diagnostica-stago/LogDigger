@@ -1,0 +1,36 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="LogDigger.Properties" GeneratedClassName="UserSettings">
+  <Profiles />
+  <Settings>
+    <Setting Name="TextReaderPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Program Files (x86)\Notepad++\notepad++.exe</Value>
+    </Setting>
+    <Setting Name="TextReaderArgs" Type="System.String" Scope="User">
+      <Value Profile="(Default)">%f -n%ln</Value>
+    </Setting>
+    <Setting Name="DateSortDirection" Type="System.ComponentModel.ListSortDirection" Scope="User">
+      <Value Profile="(Default)">Ascending</Value>
+    </Setting>
+    <Setting Name="IdColumnVisible" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="ContentColumnVisible" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="LevelColumnVisible" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="TypeColumnVisible" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="ViewProfile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Custom</Value>
+    </Setting>
+    <Setting Name="ShowSummaryContent" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ThreadColumnVisible" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

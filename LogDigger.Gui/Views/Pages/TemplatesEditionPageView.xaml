@@ -1,0 +1,234 @@
+﻿<Grid
+    x:Class="LogDigger.Gui.Views.Pages.TemplatesEditionPageView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:summaries="clr-namespace:LogDigger.Gui.ViewModels.Pages.Summaries"
+    xmlns:behaviors="clr-namespace:LogDigger.Gui.Views.Behaviors"
+    xmlns:converters="clr-namespace:LogDigger.Gui.Views.Converters"
+    d:DataContext="{d:DesignInstance summaries:TemplatesEditionPageVm}"
+    d:DesignHeight="300"
+    d:DesignWidth="300"
+    mc:Ignorable="d">
+    <Grid.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="CommonDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Grid.Resources>
+    <DataGrid
+        Margin="0 60 0 0"
+        VerticalAlignment="Stretch"
+        ItemsSource="{Binding Path=Templates}"
+        SelectedItem="{Binding Path=SelectedItem}"
+        SelectionMode="Single"
+        Style="{StaticResource DataGridLogStyle}">
+        <DataGrid.Columns>
+            <DataGridTemplateColumn
+                Width="*"
+                CanUserSort="False"
+                Header="Pattern"
+                IsReadOnly="True">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate DataType="{x:Type summaries:CustomLogTemplateVm}">
+                        <ae:TextEditor
+                            VerticalAlignment="Center"
+                            Background="Transparent"
+                            HorizontalScrollBarVisibility="Disabled"
+                            VerticalScrollBarVisibility="Disabled">
+                            <i:Interaction.Behaviors>
+                                <behaviors:AvalonEditBehaviour GiveMeTheText="{Binding Path=Pattern, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="False" />
+                            </i:Interaction.Behaviors>
+                        </ae:TextEditor>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn
+                Width="*"
+                CanUserSort="False"
+                Header="Child pattern"
+                IsReadOnly="True">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate DataType="{x:Type summaries:CustomLogTemplateVm}">
+                        <ae:TextEditor
+                            VerticalAlignment="Center"
+                            Background="Transparent"
+                            HorizontalScrollBarVisibility="Disabled"
+                            VerticalScrollBarVisibility="Disabled">
+                            <i:Interaction.Behaviors>
+                                <behaviors:AvalonEditBehaviour GiveMeTheText="{Binding Path=Childpattern, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="False" />
+                            </i:Interaction.Behaviors>
+                        </ae:TextEditor>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn
+                Width="*"
+                CanUserSort="False"
+                Header="Transformation"
+                IsReadOnly="True">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate DataType="{x:Type summaries:CustomLogTemplateVm}">
+                        <ae:TextEditor
+                            VerticalAlignment="Center"
+                            Background="Transparent"
+                            HorizontalScrollBarVisibility="Disabled"
+                            VerticalScrollBarVisibility="Disabled">
+                            <i:Interaction.Behaviors>
+                                <behaviors:AvalonEditBehaviour GiveMeTheText="{Binding Path=Details, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="False" />
+                            </i:Interaction.Behaviors>
+                        </ae:TextEditor>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn
+                CanUserSort="False"
+                Header="Type"
+                IsReadOnly="True">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate DataType="{x:Type summaries:CustomLogTemplateVm}">
+                        <ae:TextEditor
+                            VerticalAlignment="Center"
+                            Background="Transparent"
+                            FontWeight="Bold"
+                            Foreground="{Binding Path=TypeColor, Converter={converters:StringToBrushConverter}}"
+                            HorizontalScrollBarVisibility="Disabled"
+                            VerticalScrollBarVisibility="Disabled">
+                            <i:Interaction.Behaviors>
+                                <behaviors:AvalonEditBehaviour GiveMeTheText="{Binding Path=TypeName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="False" />
+                            </i:Interaction.Behaviors>
+                        </ae:TextEditor>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn
+                CanUserSort="False"
+                Header="Color"
+                IsReadOnly="True">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate DataType="{x:Type summaries:CustomLogTemplateVm}">
+                        <Grid>
+                            <ae:TextEditor
+                                VerticalAlignment="Center"
+                                Background="Transparent"
+                                FontWeight="Bold"
+                                Foreground="{Binding Path=TypeColor, Converter={converters:StringToBrushConverter}}"
+                                HorizontalScrollBarVisibility="Disabled"
+                                VerticalScrollBarVisibility="Disabled">
+                                <i:Interaction.Behaviors>
+                                    <behaviors:AvalonEditBehaviour GiveMeTheText="{Binding Path=TypeColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="False" />
+                                </i:Interaction.Behaviors>
+                            </ae:TextEditor>
+                        </Grid>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridCheckBoxColumn
+                Binding="{Binding Path=IsException}"
+                CanUserSort="False"
+                Header="Exception"
+                IsReadOnly="False" />
+        </DataGrid.Columns>
+    </DataGrid>
+    <Grid
+        Margin="5 10"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Top">
+        <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+            <Button
+                Margin="10 0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Command="{Binding Path=MoveUpCommand}"
+                Style="{DynamicResource MaterialDesignFloatingActionMiniAccentButton}"
+                ToolTip="Move up">
+                <md:PackIcon
+                    Width="24"
+                    Height="24"
+                    Kind="ArrowUpBoldCircle" />
+            </Button>
+            <Button
+                Margin="10 0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Command="{Binding Path=MoveDownCommand}"
+                Style="{DynamicResource MaterialDesignFloatingActionMiniAccentButton}"
+                ToolTip="Move down">
+                <md:PackIcon
+                    Width="24"
+                    Height="24"
+                    Kind="ArrowDownBoldCircle" />
+            </Button>
+            <Button
+                Margin="10 0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Command="{Binding Path=AddItemCommand}"
+                Style="{DynamicResource MaterialDesignFloatingActionMiniAccentButton}"
+                ToolTip="Add an item">
+                <md:PackIcon
+                    Width="24"
+                    Height="24"
+                    Kind="PlusBox" />
+            </Button>
+            <Button
+                Margin="10 0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Command="{Binding Path=DeleteItemCommand}"
+                Style="{DynamicResource MaterialDesignFloatingActionMiniAccentButton}"
+                ToolTip="Remove the selected item">
+                <md:PackIcon
+                    Width="24"
+                    Height="24"
+                    Kind="MinusBox" />
+            </Button>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+            <Button
+                Margin="10 0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Command="{Binding Path=ImportCommand}"
+                Style="{DynamicResource MaterialDesignFloatingActionMiniAccentButton}"
+                ToolTip="Import configuration">
+                <md:PackIcon
+                    Width="24"
+                    Height="24"
+                    Kind="FileImport" />
+            </Button>
+            <Button
+                Margin="10 0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Command="{Binding Path=ExportCommand}"
+                Style="{DynamicResource MaterialDesignFloatingActionMiniAccentButton}"
+                ToolTip="Export configuration">
+                <md:PackIcon
+                    Width="24"
+                    Height="24"
+                    Kind="FileExport" />
+            </Button>
+            <Button
+                Margin="10 0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Command="{Binding Path=SaveCommand}"
+                Style="{DynamicResource MaterialDesignFloatingActionMiniAccentButton}"
+                ToolTip="Save the templates">
+                <md:PackIcon
+                    Width="24"
+                    Height="24"
+                    Kind="ContentSaveAll" />
+            </Button>
+        </StackPanel>
+    </Grid>
+</Grid>
+
+
+

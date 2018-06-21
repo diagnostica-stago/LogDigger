@@ -1,0 +1,8 @@
+.vs/
+.idea/
+packages/
+/*.user
+*.tmp_proj
+NDependOut/
+bin
+obj

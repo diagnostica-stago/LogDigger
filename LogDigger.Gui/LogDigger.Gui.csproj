@@ -1,0 +1,641 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B19F1E4C-ED7A-4EE0-BB5B-0A146BD5CA82}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LogDigger.Gui</RootNamespace>
+    <AssemblyName>LogDigger.Gui</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <PublishUrl>\\172.31.248.3\nasshare\Logiciels\LogDigger\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Unc</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>true</UpdateRequired>
+    <MapFileExtensions>false</MapFileExtensions>
+    <InstallUrl>\\172.31.248.3\nasshare\Logiciels\LogDigger\</InstallUrl>
+    <ProductName>Log Digger</ProductName>
+    <PublisherName>Stago</PublisherName>
+    <MinimumRequiredVersion>1.8.0.11</MinimumRequiredVersion>
+    <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.15.0.0</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsNotAsErrors>4014</WarningsNotAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>ACF6FBDA32AF153B11895661D401A789363B3220</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>LogDigger_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Assets\Custom-Icon-Design-Flatastic-10-Search-file.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da">
+      <HintPath>..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Dragablz, Version=0.0.3.186, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dragablz.0.0.3.186\lib\net45\Dragablz.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GraphSharp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\GraphSharp_Unofficial.1.0.4\lib\net45\GraphSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GraphSharp.Controls, Version=1.0.5467.23657, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\GraphSharp_Unofficial.1.0.4\lib\net45\GraphSharp.Controls.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ICSharpCode.AvalonEdit, Version=5.0.1.0, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
+      <HintPath>..\packages\AvalonEdit.5.0.2\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MahApps.Metro, Version=1.4.3.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.4.3\lib\net45\MahApps.Metro.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MaterialDesignColors, Version=1.1.3.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\MaterialDesignColors.1.1.3\lib\net45\MaterialDesignColors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MaterialDesignThemes.MahApps, Version=0.0.11.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\MaterialDesignThemes.MahApps.0.0.11\lib\net45\MaterialDesignThemes.MahApps.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MaterialDesignThemes.Wpf, Version=2.4.0.1044, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\MaterialDesignThemes.2.4.0.1044\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Expression.Interaction.3.0.40218.0\lib\net46\Microsoft.Expression.Interactions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="mscorlib" />
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json.Schema, Version=2.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.Schema.2.0.10\lib\net45\Newtonsoft.Json.Schema.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="QuickGraph, Version=3.6.61114.0, Culture=neutral, PublicKeyToken=f3fb40175eec2af3, processorArchitecture=MSIL">
+      <HintPath>..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="QuickGraph.Data, Version=3.6.61114.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="QuickGraph.Graphviz, Version=3.6.61114.0, Culture=neutral, PublicKeyToken=f3fb40175eec2af3, processorArchitecture=MSIL">
+      <HintPath>..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.Graphviz.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="QuickGraph.Serialization, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.Serialization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ReactiveUI, Version=8.2.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\ReactiveUI.8.2.1\lib\net461\ReactiveUI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ReactiveUI.WPF, Version=8.2.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\ReactiveUI.WPF.8.2.1\lib\net461\ReactiveUI.WPF.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SimpleLogger, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleLogger.1.0.0\lib\net40\SimpleLogger.dll</HintPath>
+    </Reference>
+    <Reference Include="Splat, Version=4.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\Splat.4.0.0\lib\net461\Splat.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sprache, Version=2.1.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\Sprache.2.1.0\lib\net40\Sprache.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\System.Drawing.Primitives.4.3.0\lib\net45\System.Drawing.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Management" />
+    <Reference Include="System.Reactive.Core, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263">
+      <HintPath>..\packages\System.Reactive.Core.3.1.1\lib\net46\System.Reactive.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces, Version=3.0.1000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263">
+      <HintPath>..\packages\System.Reactive.Interfaces.3.1.1\lib\net45\System.Reactive.Interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.Linq, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263">
+      <HintPath>..\packages\System.Reactive.Linq.3.1.1\lib\net46\System.Reactive.Linq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.PlatformServices, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263">
+      <HintPath>..\packages\System.Reactive.PlatformServices.3.1.1\lib\net46\System.Reactive.PlatformServices.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.Windows.Threading, Version=3.0.1000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263">
+      <HintPath>..\packages\System.Reactive.Windows.Threading.3.1.1\lib\net45\System.Reactive.Windows.Threading.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.0-preview2-26406-04\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Expression.Interaction.3.0.40218.0\lib\net46\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Serialization" />
+    <Reference Include="TCD.System.TouchInjection, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TCD.System.TouchInjection.1.0.0\lib\net45\TCD.System.TouchInjection.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="TestApiCore, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TestApi.0.6.0.0\lib\net40\TestApiCore.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="TestApiWpf, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TestApi.0.6.0.0\lib\net40\TestApiWpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\UserSettings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>UserSettings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Columns\ACellTemplateVm.cs" />
+    <Compile Include="ViewModels\Columns\ColumnVm.cs" />
+    <Compile Include="ViewModels\Columns\DateCellTemplateVm.cs" />
+    <Compile Include="ViewModels\Columns\DefaultCellTemplateVm.cs" />
+    <Compile Include="ViewModels\Columns\IColumnDescriptionVm.cs" />
+    <Compile Include="ViewModels\Columns\HeaderedCellTemplateVm.cs" />
+    <Compile Include="ViewModels\Columns\LevelCellTemplateVm.cs" />
+    <Compile Include="ViewModels\Core\ACodeViewInjector.cs" />
+    <Compile Include="ViewModels\Core\AModalVm.cs" />
+    <Compile Include="ViewModels\Core\APageVm.cs" />
+    <Compile Include="ViewModels\Core\AppUtils.cs" />
+    <Compile Include="ViewModels\Core\AssemblyExtensions.cs" />
+    <Compile Include="ViewModels\Core\AttributeViewInjector.cs" />
+    <Compile Include="ViewModels\Core\ChangeLogVm.cs" />
+    <Compile Include="ViewModels\Core\CollectionExtensions.cs" />
+    <Compile Include="ViewModels\Core\CompositeSelectableVm.cs" />
+    <Compile Include="ViewModels\Core\GuiScheduler.cs" />
+    <Compile Include="ViewModels\Core\IActivable.cs" />
+    <Compile Include="ViewModels\Core\ICloseable.cs" />
+    <Compile Include="ViewModels\Core\IGuiScheduler.cs" />
+    <Compile Include="ViewModels\Core\IModalHandler.cs" />
+    <Compile Include="ViewModels\Core\InjectViewAttribute.cs" />
+    <Compile Include="ViewModels\Core\InjectViewAttributeHelper.cs" />
+    <Compile Include="ViewModels\Core\NewTabMessage.cs" />
+    <Compile Include="ViewModels\Core\OpenModalMessage.cs" />
+    <Compile Include="ViewModels\Core\ReflectionUtils.cs" />
+    <Compile Include="ViewModels\Core\SelectionChangingEventArgs.cs" />
+    <Compile Include="ViewModels\Filters\AFilterItemVm.cs" />
+    <Compile Include="ViewModels\Filters\DateFilterVm.cs" />
+    <Compile Include="ViewModels\Filters\ExclusionStringFilterVm.cs" />
+    <Compile Include="ViewModels\Filters\FilterItemVm.cs" />
+    <Compile Include="ViewModels\Filters\FilterType.cs" />
+    <Compile Include="ViewModels\Filters\IFilterItem.cs" />
+    <Compile Include="ViewModels\Filters\InclusionStringFilterVm.cs" />
+    <Compile Include="ViewModels\Filters\SimpleListFilterItemVm.cs" />
+    <Compile Include="ViewModels\LogEntries\ContentInfoParser.cs" />
+    <Compile Include="ViewModels\Core\IHighlightSearchItemVm.cs" />
+    <Compile Include="ViewModels\Core\IItemsHolder.cs" />
+    <Compile Include="ViewModels\LogEntries\LogType.cs" />
+    <Compile Include="ViewModels\LogEntries\ILogContentInfo.cs" />
+    <Compile Include="ViewModels\LogEntries\InputContentInfo.cs" />
+    <Compile Include="ViewModels\LogEntries\ModulesExtension.cs" />
+    <Compile Include="ViewModels\LogEntries\NoContentInfo.cs" />
+    <Compile Include="ViewModels\LogStructure\ILogStructureVm.cs" />
+    <Compile Include="ViewModels\LogStructure\LogFilePreviewVm.cs" />
+    <Compile Include="ViewModels\LogStructure\LogFormatUtils.cs" />
+    <Compile Include="ViewModels\LogStructure\LogStructureSerializer.cs" />
+    <Compile Include="ViewModels\LogStructure\LogStructureVm.cs" />
+    <Compile Include="ViewModels\LogStructure\ParsingState.cs" />
+    <Compile Include="ViewModels\MainWindow\DateTimeExtensions.cs" />
+    <Compile Include="ViewModels\Pages\AFilterPageVm.cs" />
+    <Compile Include="ViewModels\Pages\History\AField.cs" />
+    <Compile Include="ViewModels\Pages\History\ContentField.cs" />
+    <Compile Include="ViewModels\Pages\History\DbEvent.cs" />
+    <Compile Include="ViewModels\Pages\History\Operation.cs" />
+    <Compile Include="ViewModels\Pages\Summaries\CustomLogTemplateVm.cs" />
+    <Compile Include="ViewModels\Pages\History\EntityGroup.cs" />
+    <Compile Include="ViewModels\Pages\History\EntitiesHistoryPageVm.cs" />
+    <Compile Include="ViewModels\Pages\History\Entity.cs" />
+    <Compile Include="ViewModels\Pages\History\EntityParser.cs" />
+    <Compile Include="ViewModels\Pages\IHasHighlights.cs" />
+    <Compile Include="ViewModels\Pages\Summaries\ALogSummaryVm.cs" />
+    <Compile Include="ViewModels\Pages\Summaries\CustomLogSummaryVm.cs" />
+    <Compile Include="ViewModels\Pages\Summaries\LogSummaryFactory.cs" />
+    <Compile Include="ViewModels\Pages\Summaries\SummaryEntriesPageVm.cs" />
+    <Compile Include="ViewModels\Pages\Summaries\TemplatesEditionPageVm.cs" />
+    <Compile Include="ViewModels\Pages\ViewProfiles\AdvancedViewProfile.cs" />
+    <Compile Include="ViewModels\Pages\ViewProfiles\IViewProfile.cs" />
+    <Compile Include="ViewModels\Pages\ViewProfiles\SimpleViewProfile.cs" />
+    <Compile Include="ViewModels\Pages\ViewProfiles\ViewCustomization.cs" />
+    <Compile Include="ViewModels\Pages\ViewProfiles\ViewProfile.cs" />
+    <Compile Include="ViewModels\Pages\ViewProfiles\ViewProfileFactory.cs" />
+    <Compile Include="ViewModels\Pages\Replay\ContentDialogVm.cs" />
+    <Compile Include="ViewModels\Pages\Replay\GuiType.cs" />
+    <Compile Include="ViewModels\Pages\Replay\Injector.cs" />
+    <Compile Include="ViewModels\Pages\Replay\InputUtils.cs" />
+    <Compile Include="ViewModels\Pages\Replay\InterceptKeys.cs" />
+    <Compile Include="ViewModels\Pages\Replay\KeyboardListener.cs" />
+    <Compile Include="ViewModels\Pages\Replay\KeyEvent.cs" />
+    <Compile Include="ViewModels\Pages\Replay\LogPlayer.cs" />
+    <Compile Include="ViewModels\Pages\Replay\NativeMethods.cs" />
+    <Compile Include="ViewModels\Pages\Replay\ProcessHelper.cs" />
+    <Compile Include="ViewModels\Pages\Replay\RawKeyEventArgs.cs" />
+    <Compile Include="ViewModels\Pages\Replay\ReplayPageVm.cs" />
+    <Compile Include="ViewModels\Pages\Replay\TouchUtils.cs" />
+    <Compile Include="ViewModels\Pages\Replay\WindowInfo.cs" />
+    <Compile Include="ViewModels\Settings\SettingsVm.cs" />
+    <Compile Include="ViewModels\MainWindow\TooBigLogModalVm.cs" />
+    <Compile Include="Views\BaseApp.cs" />
+    <Compile Include="Views\Behaviors\AttachedColumnBehavior.cs" />
+    <Compile Include="Views\Behaviors\AvalonHighlightBehavior.cs" />
+    <Compile Include="Views\Behaviors\Behaviors.cs" />
+    <Compile Include="Views\Behaviors\CustomBoundColumn.cs" />
+    <Compile Include="Views\Behaviors\MappedValue.cs" />
+    <Compile Include="Views\Behaviors\MappedValueCollection.cs" />
+    <Compile Include="Views\BindingProxy.cs" />
+    <Compile Include="Views\Bindings\ABindingDecorator.cs" />
+    <Compile Include="Views\Bindings\TimerBinding.cs" />
+    <Compile Include="Views\Behaviors\TimerUpdateBindingBehavior.cs" />
+    <Compile Include="Views\ChangeLogView.xaml.cs">
+      <DependentUpon>ChangeLogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ClosingAppHandler.cs" />
+    <Compile Include="Views\ContentDialogView.xaml.cs">
+      <DependentUpon>ContentDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\LoadingPanel.cs" />
+    <Compile Include="Views\Controls\RefControl.cs" />
+    <Compile Include="Views\Controls\TextEditorEx.cs" />
+    <Compile Include="Views\Converters\EdgeRouteToTextBlockConverter.cs" />
+    <Compile Include="Views\Converters\GraphConverterHelper.cs" />
+    <Compile Include="ViewModels\Core\HighlightSearchItemVm.cs" />
+    <Compile Include="ViewModels\Core\INavigator.cs" />
+    <Compile Include="ViewModels\Filters\AStringFilterVm.cs" />
+    <Compile Include="ViewModels\Core\ViewModelExtensions.cs" />
+    <Compile Include="Views\Converters\BoolToSortDirectionConverter.cs" />
+    <Compile Include="Views\Controls\DateTimeEx.cs" />
+    <Compile Include="Views\Controls\DefaultInterLayoutClientEx.cs" />
+    <Compile Include="Views\Controls\DeferLoadingControl.cs" />
+    <Compile Include="Views\Controls\HighlightBar.cs" />
+    <Compile Include="Views\Controls\ScrollViewerEx.cs" />
+    <Compile Include="Views\Controls\SequenceDiagram\SequenceDiagramControl.cs" />
+    <Compile Include="Views\Controls\TimePickerEx.cs" />
+    <Compile Include="Views\Converters\GreaterThanMultiValueConverter.cs" />
+    <Compile Include="Views\Converters\HasMultipleItemsConverter.cs" />
+    <Compile Include="Views\Converters\InverseBoolConverter.cs" />
+    <Compile Include="Views\Converters\StringToBrushConverter.cs" />
+    <Compile Include="Views\Converters\NullToVisibilityConverter.cs" />
+    <Compile Include="Views\Converters\StringConvertion.cs" />
+    <Compile Include="Views\Converters\StringToUpperCaseConverter.cs" />
+    <Compile Include="Views\Converters\SubstractConverter.cs" />
+    <Compile Include="Views\DataTemplates\GenericTemplateSelector.cs" />
+    <Compile Include="Views\DialogView.xaml.cs">
+      <DependentUpon>DialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Behaviors\ShowAdornerOnMouseOverBehavior.cs" />
+    <Compile Include="Views\Behaviors\ClosePopupBehavior.cs" />
+    <Compile Include="Views\LogStructureView.xaml.cs" />
+    <Compile Include="Views\Pages\AEntriesPageVm.cs" />
+    <Compile Include="Views\Pages\ControlAdorner.cs" />
+    <Compile Include="Views\Pages\EntitiesHistoryPageView.xaml.cs" />
+    <Compile Include="Views\Pages\EntriesView.xaml.cs">
+      <DependentUpon>EntriesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\FilterAndSearchPanelView.xaml.cs">
+      <DependentUpon>FilterAndSearchPanelView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FilterBoxView.xaml.cs">
+      <DependentUpon>FilterBoxView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Core\GlobalMessageQueue.cs" />
+    <Compile Include="Views\Pages\FilterPanelView.xaml.cs">
+      <DependentUpon>FilterPanelView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\HighlightBarsView.xaml.cs">
+      <DependentUpon>HighlightBarsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Converters\TickToDateTimeConverter.cs" />
+    <Compile Include="Views\Pages\ReplayPageView.xaml.cs">
+      <DependentUpon>ReplayPageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\SearchPanelView.xaml.cs">
+      <DependentUpon>SearchPanelView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\SummaryEntriesView.xaml.cs">
+      <DependentUpon>SummaryEntriesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\TemplatesEditionPageView.xaml.cs">
+      <DependentUpon>TemplatesEditionPageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TooBigLogModalView.xaml.cs">
+      <DependentUpon>TooBigLogModalView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Views\BaseDictionary.xaml" />
+    <Page Include="Views\ChangeLogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LogStructureView.xaml" />
+    <Page Include="Views\Pages\CellTemplatesDictionary.xaml" />
+    <Page Include="Views\Pages\EntitiesHistoryPageView.xaml" />
+    <Page Include="Views\Pages\EntriesView.xaml" />
+    <Page Include="Views\Pages\FilterPanelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\HighlightBarsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\SearchPanelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\StylesDictionary.xaml" />
+    <Page Include="Views\Styles\LoadingPanelStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\AllEntriesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Pages\CommonDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ContentDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\FxDataGridStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\ErrorEntriesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Pages\FilterAndSearchPanelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FilterBoxView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="ViewModels\Pages\All\AllEntriesPageVm.cs" />
+    <Compile Include="ViewModels\Core\AViewModel.cs" />
+    <Compile Include="ViewModels\Filters\EntryFilterVm.cs" />
+    <Compile Include="ViewModels\Pages\Errors\ErrorEntriesPageVm.cs" />
+    <Compile Include="ViewModels\Core\IndexedDate.cs" />
+    <Compile Include="ViewModels\Core\IPage.cs" />
+    <Compile Include="ViewModels\LogEntries\LogEntryVm.cs" />
+    <Compile Include="ViewModels\MainWindow\MainWindowVm.cs" />
+    <Compile Include="ViewModels\Core\SelectableVm.cs" />
+    <Compile Include="Views\Pages\AllEntriesView.xaml.cs">
+      <DependentUpon>AllEntriesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Converters\AMarkupConverter.cs" />
+    <Compile Include="Views\Converters\AMarkupMultiValueConverter.cs" />
+    <Compile Include="Views\Behaviors\AvalonTextBehavior.cs" />
+    <Compile Include="Views\Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Views\Core\ColorizeAvalonEdit.cs" />
+    <Compile Include="Views\Converters\ContainsMultiValueConverter.cs" />
+    <Compile Include="Views\Controls\DataGridEx.cs" />
+    <Compile Include="Views\Controls\DataGridHeadersVisibilityToVisibilityConverter.cs" />
+    <Compile Include="Views\Controls\RowToIndexConv.cs" />
+    <Compile Include="Views\Controls\VisualTreeUtil.cs" />
+    <Compile Include="Views\Converters\DebugConverter.cs" />
+    <Compile Include="Views\Controls\FxDataGrid.cs" />
+    <Compile Include="Views\Pages\ErrorEntriesView.xaml.cs">
+      <DependentUpon>ErrorEntriesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Converters\IndexInListConverter.cs" />
+    <Compile Include="Views\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Views\Pages\ReplayPageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\SummaryEntriesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\TemplatesEditionPageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Styles\TimePickerExStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TooBigLogModalView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="..\..\mhp-code\InstrumentSoftware\Cs.Dev\src\Settings.XamlStyler">
+      <Link>Settings.XamlStyler</Link>
+    </None>
+    <None Include="LogDigger_TemporaryKey.pfx" />
+    <None Include="packages.config" />
+    <None Include="Properties\app.manifest" />
+    <AppDesigner Include="Properties\" />
+    <None Include="Properties\UserSettings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>UserSettings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Settings.XamlStyler" />
+    <None Include="ViewModels\Pages\Summaries\templates.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Custom-Icon-Design-Flatastic-10-Search-file.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="logtemplate.xshd" />
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="netfx.force.conflicts">
+      <Visible>False</Visible>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LogDigger.Business\LogDigger.Business.csproj">
+      <Project>{494fe6c7-3af0-4c18-9e80-2dc905eeded4}</Project>
+      <Name>LogDigger.Business</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Target Name="FixClickOnceDependencies" BeforeTargets="_DeploymentComputeClickOnceManifestInfo">
+    <ItemGroup>
+      <_noCopyRefs Include="@(ReferencePath)" Condition="'%(ReferencePath.Private)' == 'false'" />
+      <_noCopyRefsByFileName Include="@(_noCopyRefs->'%(FileName)')">
+        <OriginalItem>%(Identity)</OriginalItem>
+      </_noCopyRefsByFileName>
+      <_libByFileName Include="@(ReferenceCopyLocalPaths->'%(FileName)')">
+        <OriginalItem>%(Identity)</OriginalItem>
+      </_libByFileName>
+      <_overlappingRefByFileName Include="@(_noCopyRefsByFileName)" Condition="'@(_noCopyRefsByFileName)' == '@(_libByFileName)' AND '%(Identity)' != ''" />
+      <_overlappingLibByFileName Include="@(_libByFileName)" Condition="'@(_noCopyRefsByFileName)' == '@(_libByFileName)' AND '%(Identity)' != ''" />
+      <_overlappingRef Include="@(_overlappingRefByFileName->'%(OriginalItem)')" />
+      <_overlappingLib Include="@(_overlappingLibByFileName->'%(OriginalItem)')" />
+    </ItemGroup>
+    <ItemGroup Condition="'@(_overlappingRef)' != ''">
+      <ReferencePath Remove="@(_overlappingRef)" />
+      <ReferencePath Include="@(_overlappingLib)">
+        <Private>True</Private>
+      </ReferencePath>
+    </ItemGroup>
+  </Target>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- The following makes sure we don’t try to publish a configuration that defines the DEBUG constant -->
+  <Target Name="BeforePublish">
+    <Error Condition="'$(DebugSymbols)' == 'true'" Text="You attempted to publish a configuration that defines the DEBUG constant!" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

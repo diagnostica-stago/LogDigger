@@ -1,0 +1,20 @@
+﻿<Grid
+    x:Class="LogDigger.Gui.Views.Pages.ErrorEntriesView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="clr-namespace:LogDigger.Gui.Views.Pages"
+    xmlns:controls="clr-namespace:LogDigger.Gui.Views.Controls"
+    xmlns:errors="clr-namespace:LogDigger.Gui.ViewModels.Pages.Errors"
+    d:DataContext="{d:DesignInstance errors:ErrorEntriesPageVm}"
+    d:DesignHeight="300"
+    d:DesignWidth="300"
+    mc:Ignorable="d">
+    <Grid.Resources>
+        <ResourceDictionary Source="CommonDictionary.xaml" />
+    </Grid.Resources>
+    <controls:LoadingPanel IsLoading="{Binding Path=IsLoading}" ProgressInfo="{Binding Path=ProgressInfo}">
+        <pages:EntriesView />
+    </controls:LoadingPanel>
+</Grid>

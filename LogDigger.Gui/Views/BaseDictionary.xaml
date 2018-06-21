@@ -1,0 +1,90 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit"
+    xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
+    xmlns:controls="clr-namespace:LogDigger.Gui.Views.Controls"
+    xmlns:dataTemplates="clr-namespace:LogDigger.Gui.Views.DataTemplates">
+    <ResourceDictionary.MergedDictionaries>
+
+        <!--  MahApps  -->
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+
+        <!--  Dragablz Material Design  -->
+        <ResourceDictionary Source="pack://application:,,,/Dragablz;component/Themes/materialdesign.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.BlueGrey.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Cyan.xaml" />
+
+        <!--  Material Design: MahApps Compatibility  -->
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.MahApps;component/Themes/MaterialDesignTheme.MahApps.Fonts.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.MahApps;component/Themes/MaterialDesignTheme.MahApps.Flyout.xaml" />
+
+        <!--  App styles  -->
+        <ResourceDictionary Source="/LogDigger.Gui;component/Views/Styles/TimePickerExStyles.xaml" />
+        <ResourceDictionary Source="/LogDigger.Gui;component/Views/Styles/LoadingPanelStyles.xaml" />
+
+        <!--  Common style & templates  -->
+        <ResourceDictionary Source="/LogDigger.Gui;component/Views/Pages/CommonDictionary.xaml" />
+
+    </ResourceDictionary.MergedDictionaries>
+    <!--  Dragablz Material Design  -->
+    <Style BasedOn="{StaticResource MaterialDesignTabablzControlStyle}" TargetType="{x:Type dragablz:TabablzControl}" />
+
+    <Style BasedOn="{StaticResource {x:Type ListBox}}" TargetType="ListBox">
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Background" Value="#08000000" />
+    </Style>
+
+    <Style TargetType="{x:Type ae:TextEditor}">
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}" />
+        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
+        <Setter Property="FlowDirection" Value="LeftToRight" />
+        <!--  AvalonEdit does not support RTL, so ensure we use LTR by default  -->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ae:TextEditor}">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <controls:ScrollViewerEx
+                            x:Name="PART_ScrollViewer"
+                            Padding="{TemplateBinding Padding}"
+                            HorizontalContentAlignment="Left"
+                            VerticalContentAlignment="Top"
+                            CanContentScroll="True"
+                            Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TextArea}"
+                            Focusable="False"
+                            HandleMouseWheel="False"
+                            HorizontalScrollBarVisibility="{TemplateBinding HorizontalScrollBarVisibility}"
+                            VerticalScrollBarVisibility="{TemplateBinding VerticalScrollBarVisibility}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="WordWrap" Value="True">
+                            <Setter TargetName="PART_ScrollViewer" Property="HorizontalScrollBarVisibility" Value="Disabled" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="DragableTabItemStyle" BasedOn="{StaticResource MaterialDesignDragableTabItemStyle}" TargetType="{x:Type dragablz:DragablzItem}">
+        <Setter Property="Height" Value="40" />
+    </Style>
+    <!--
+        This style is apply to all ContentPresenter
+        It define a new TemplateSelector which can resolve generic data type
+    -->
+    <dataTemplates:GenericTemplateSelector x:Key="TemplateSelector" />
+    <Style TargetType="{x:Type ContentPresenter}">
+        <Setter Property="ContentTemplateSelector" Value="{StaticResource TemplateSelector}" />
+    </Style>
+</ResourceDictionary>

@@ -1,0 +1,89 @@
+﻿<Grid
+    x:Class="LogDigger.Gui.Views.Pages.AllEntriesView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:p="clr-namespace:LogDigger.Gui.Views.Pages"
+    xmlns:controls="clr-namespace:LogDigger.Gui.Views.Controls"
+    xmlns:converters="clr-namespace:LogDigger.Gui.Views.Converters"
+    xmlns:columns="clr-namespace:LogDigger.Gui.ViewModels.Columns"
+    x:Name="xamlGridRoot"
+    d:DataContext="{d:DesignInstance p:AEntriesPageVm}"
+    d:DesignHeight="300"
+    d:DesignWidth="300"
+    mc:Ignorable="d">
+    <Grid.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="CommonDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Grid.Resources>
+    <controls:LoadingPanel IsLoading="{Binding Path=IsLoading}" ProgressInfo="{Binding Path=ProgressInfo}">
+        <Grid Visibility="{Binding Path=IsLoading, Converter={converters:BoolToVisibilityConverter Collapse=True, IsInversed=True}}">
+            <Grid.Resources>
+                <DataTemplate x:Key="HeaderTemplate" DataType="{x:Type columns:IColumnDescriptionVm}">
+                    <TextBlock Text="{Binding Name}" />
+                </DataTemplate>
+                <DataTemplate x:Key="CellTemplate">
+                    <ContentPresenter Content="{Binding}" />
+                </DataTemplate>
+            </Grid.Resources>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3.8*" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <p:EntriesView />
+
+            <!--  Columns selection  -->
+            <md:PopupBox
+                Grid.Column="0"
+                Margin="10"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                IsEnabled="{Binding IsChecked, ElementName=PopupEnabled}"
+                StaysOpen="True">
+                <Grid Width="300" Margin="10">
+                    <ItemsControl ItemsSource="{Binding Path=Columns}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox IsChecked="{Binding Path=IsVisible}" />
+                                    <TextBlock Margin="5 0 0 0" Text="{Binding Path=Name}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+            </md:PopupBox>
+
+            <p:HighlightBarsView
+                Grid.Column="0"
+                Margin="0 64 0 34"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Stretch" />
+
+            <ProgressBar
+                Grid.Column="0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                IsIndeterminate="True"
+                Style="{DynamicResource MaterialDesignCircularProgressBar}"
+                Visibility="{Binding Path=UpdatingFilter, Converter={converters:BoolToVisibilityConverter Collapse=True}}"
+                Value="0" />
+
+            <GridSplitter
+                Grid.Column="1"
+                Width="5"
+                HorizontalAlignment="Stretch" />
+
+            <p:FilterAndSearchPanelView Grid.Column="2" />
+        </Grid>
+    </controls:LoadingPanel>
+</Grid>

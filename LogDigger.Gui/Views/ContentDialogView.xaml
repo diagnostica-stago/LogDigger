@@ -1,0 +1,30 @@
+﻿<Grid
+    x:Class="LogDigger.Gui.Views.ContentDialogView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:replay="clr-namespace:LogDigger.Gui.ViewModels.Pages.Replay"
+    d:DataContext="{d:DesignInstance replay:ContentDialogVm}"
+    d:DesignHeight="300"
+    d:DesignWidth="300"
+    mc:Ignorable="d">
+    <Grid.RowDefinitions>
+        <RowDefinition Height="*" />
+        <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+    <TextBlock Margin="20" Text="{Binding Path=Content}" />
+    <Button
+        Grid.Row="1"
+        Margin="20"
+        Command="{x:Static md:DialogHost.CloseDialogCommand}"
+        IsCancel="True"
+        Style="{DynamicResource MaterialDesignFlatButton}">
+        <Button.CommandParameter>
+            <system:Boolean>False</system:Boolean>
+        </Button.CommandParameter>
+        OK
+    </Button>
+</Grid>

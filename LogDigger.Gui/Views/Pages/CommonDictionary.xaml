@@ -1,0 +1,240 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:c="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:logEntries="clr-namespace:LogDigger.Gui.ViewModels.LogEntries"
+    xmlns:summaries="clr-namespace:LogDigger.Gui.ViewModels.Pages.Summaries"
+    xmlns:converters="clr-namespace:LogDigger.Gui.Views.Converters"
+    xmlns:filters="clr-namespace:LogDigger.Gui.ViewModels.Filters"
+    xmlns:views="clr-namespace:LogDigger.Gui.Views"
+    xmlns:controls="clr-namespace:LogDigger.Gui.Views.Controls"
+    xmlns:core="clr-namespace:LogDigger.Gui.ViewModels.Core">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="StylesDictionary.xaml" />
+        <ResourceDictionary Source="CellTemplatesDictionary.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <DataTemplate x:Key="DateTemplate" DataType="{x:Type logEntries:LogEntryVm}">
+        <StackPanel VerticalAlignment="Center">
+            <TextBlock
+                FontSize="10"
+                Foreground="DarkGray"
+                Text="{Binding Path=Date, StringFormat=dd/MM/yyyy}" />
+            <TextBlock Text="{Binding Path=Date, StringFormat=HH:mm:ss.fff}" />
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ThreadTemplate" DataType="{x:Type logEntries:LogEntryVm}">
+        <TextBlock
+            Margin="0 -10"
+            VerticalAlignment="Center"
+            Foreground="DarkGray"
+            Text="{Binding Path=Thread}"
+            TextWrapping="Wrap" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="ModuleTemplate" DataType="{x:Type logEntries:LogEntryVm}">
+        <StackPanel VerticalAlignment="Center">
+            <TextBlock
+                FontSize="10"
+                Foreground="DarkGray"
+                Text="{Binding Path=SourceFileName}"
+                TextTrimming="CharacterEllipsis" />
+            <TextBlock Text="{Binding Path=Module}" />
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="LogTypeTemplate" DataType="{x:Type summaries:ALogSummaryVm}">
+        <TextBlock
+            x:Name="xamlDescriptionTb"
+            VerticalAlignment="Center"
+            FontWeight="Bold"
+            Foreground="{Binding Path=TypeColor, Converter={converters:StringToBrushConverter}}"
+            Text="{Binding Path=TypeName}" />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type filters:AStringFilterVm`1}">
+        <views:FilterBoxView
+            Margin="0 5 0 0"
+            md:HintAssist.Hint="{Binding Path=Name}"
+            md:HintAssist.IsFloating="True" />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type filters:DateFilterVm`1}">
+        <StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <DatePicker
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    SelectedDate="{Binding Path=LowerDateTick, Converter={converters:TickToDateTimeConverter}, Mode=TwoWay}" />
+                <controls:TimePickerEx
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Is24Hours="True"
+                    SelectedTime="{Binding Path=LowerDateTick, Converter={converters:TickToDateTimeConverter}, Mode=TwoWay}"
+                    SelectedTimeFormat="Long" />
+                <DatePicker
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="5 0 0 0"
+                    SelectedDate="{Binding Path=UpperDateTick, Converter={converters:TickToDateTimeConverter}, Mode=TwoWay}" />
+                <controls:TimePickerEx
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="5 12 0 0"
+                    Is24Hours="True"
+                    SelectedTime="{Binding Path=UpperDateTick, Converter={converters:TickToDateTimeConverter}, Mode=TwoWay}"
+                    SelectedTimeFormat="Long" />
+            </Grid>
+
+            <c:RangeSlider
+                Margin="0 20 0 0"
+                AutoToolTipPlacement="TopLeft"
+                AutoToolTipTextConverter="{converters:TickToDateTimeConverter}"
+                LowerValue="{Binding Path=LowerDateTick}"
+                Maximum="{Binding Path=MaximumDateTick}"
+                MinRange="1"
+                MinRangeWidth="1"
+                Minimum="{Binding Path=MinimumDateTick}"
+                TickFrequency="10"
+                UpperValue="{Binding Path=UpperDateTick}" />
+            <Grid Margin="0 10 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock VerticalAlignment="Center" Text="Include unknown date:" />
+                <c:ToggleSwitchButton
+                    Grid.Column="1"
+                    Margin="10 0 0 0"
+                    HorizontalAlignment="Left"
+                    IsChecked="{Binding Path=IncludeUnknownDate}" />
+            </Grid>
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type filters:SimpleListFilterItemVm`1}">
+        <StackPanel>
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <TextBlock Text="ALL" />
+                <CheckBox Margin="10 0 0 0" IsChecked="{Binding Path=AllSelected}" />
+            </StackPanel>
+            <ItemsControl ItemsSource="{Binding Path=Selectors}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type core:SelectableVm}">
+                        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                            <ToggleButton
+                                Margin="4"
+                                IsChecked="{Binding Path=IsActive}"
+                                Style="{DynamicResource MaterialDesignFlatRectToggleButton}">
+                                <TextBlock
+                                    x:Name="xamlLevelTxt"
+                                    FontSize="10"
+                                    Text="{Binding Path=Name}"
+                                    TextTrimming="CharacterEllipsis"
+                                    TextWrapping="Wrap" />
+                            </ToggleButton>
+                        </StackPanel>
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding Path=Name}" Value="INFO">
+                                <Setter TargetName="xamlLevelTxt" Property="Foreground" Value="CadetBlue" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=Name}" Value="WARN">
+                                <Setter TargetName="xamlLevelTxt" Property="Foreground" Value="Orange" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=Name}" Value="ERROR">
+                                <Setter TargetName="xamlLevelTxt" Property="Foreground" Value="OrangeRed" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=Name}" Value="FATAL">
+                                <Setter TargetName="xamlLevelTxt" Property="Foreground" Value="Red" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=Name}" Value="DEBUG">
+                                <Setter TargetName="xamlLevelTxt" Property="Foreground" Value="Olive" />
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type filters:HierarchicalListFilterItemVm`1}">
+        <StackPanel>
+            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                <CheckBox Margin="0 0 10 0" IsChecked="{Binding Path=AllSelected}" />
+                <TextBlock Text="ALL" />
+            </StackPanel>
+            <ItemsControl HorizontalAlignment="Left" ItemsSource="{Binding Path=Selectors}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type core:CompositeSelectableVm}">
+                        <Expander>
+                            <Expander.Header>
+                                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                                    <CheckBox Margin="0 0 10 0" IsChecked="{Binding Path=IsActive}" />
+                                    <TextBlock
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding Path=Name}"
+                                        TextTrimming="CharacterEllipsis"
+                                        TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Expander.Header>
+                            <ItemsControl HorizontalAlignment="Right" ItemsSource="{Binding Path=Children}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type core:SelectableVm}">
+                                        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                                            <ToggleButton
+                                                Width="80"
+                                                Height="60"
+                                                Margin="4"
+                                                IsChecked="{Binding Path=IsActive}"
+                                                Style="{DynamicResource MaterialDesignFlatRectToggleButton}">
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="*" />
+                                                    </Grid.RowDefinitions>
+                                                    <TextBlock
+                                                        FontSize="9"
+                                                        Text="{Binding Path=Name}"
+                                                        TextTrimming="CharacterEllipsis"
+                                                        TextWrapping="Wrap" />
+                                                </Grid>
+                                            </ToggleButton>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Expander>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </DataTemplate>
+
+</ResourceDictionary> 

@@ -1,0 +1,114 @@
+﻿<Grid
+    x:Class="LogDigger.Gui.Views.Pages.SummaryEntriesView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:controls="clr-namespace:LogDigger.Gui.Views.Controls"
+    xmlns:summaries="clr-namespace:LogDigger.Gui.ViewModels.Pages.Summaries"
+    xmlns:behaviors="clr-namespace:LogDigger.Gui.Views.Behaviors"
+    xmlns:pages="clr-namespace:LogDigger.Gui.Views.Pages"
+    x:Name="xamlRoot"
+    d:DataContext="{d:DesignInstance summaries:SummaryEntriesPageVm}"
+    d:DesignHeight="300"
+    d:DesignWidth="300"
+    mc:Ignorable="d">
+    <controls:LoadingPanel IsLoading="{Binding Path=IsLoading, Mode=OneWay}" ProgressInfo="{Binding Path=ProgressInfo}">
+        <Grid>
+            <Grid.Resources>
+                <ResourceDictionary>
+                    <ResourceDictionary.MergedDictionaries>
+                        <ResourceDictionary Source="CommonDictionary.xaml" />
+                    </ResourceDictionary.MergedDictionaries>
+                </ResourceDictionary>
+            </Grid.Resources>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3.8*" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <controls:LoadingPanel IsLoading="{Binding Path=UpdatingFilter}">
+                <DataGrid
+                    x:Name="xamlDataGrid"
+                    FrozenColumnCount="1"
+                    ItemsSource="{Binding Path=FilteredEntries}"
+                    Style="{StaticResource DataGridLogStyle}">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn
+                            CanUserSort="False"
+                            CellTemplate="{StaticResource DateTemplate}"
+                            Header="Date"
+                            IsReadOnly="True" />
+                        <DataGridTemplateColumn
+                            CanUserSort="False"
+                            CellTemplate="{StaticResource LogTypeTemplate}"
+                            Header="Type"
+                            IsReadOnly="True" />
+                        <DataGridTemplateColumn
+                            Width="*"
+                            CanUserSort="False"
+                            Header="Content"
+                            IsReadOnly="True">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate DataType="{x:Type summaries:ALogSummaryVm}">
+                                    <ae:TextEditor
+                                        x:Name="xamlTbContent"
+                                        VerticalAlignment="Center"
+                                        Background="Transparent"
+                                        HorizontalScrollBarVisibility="Disabled"
+                                        IsReadOnly="True"
+                                        VerticalScrollBarVisibility="Disabled">
+                                        <i:Interaction.Behaviors>
+                                            <behaviors:AvalonEditBehaviour x:Name="xamlTextBehaviour" GiveMeTheText="{Binding Path=Details, Mode=OneWay}" />
+                                            <behaviors:AvalonHighlightBehavior HighlightSearches="{Binding Source={x:Reference xamlRoot}, Path=DataContext.HighlightSearches}" />
+                                        </i:Interaction.Behaviors>
+                                    </ae:TextEditor>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </controls:LoadingPanel>
+            <Button
+                Grid.Column="0"
+                Margin="10"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Command="{Binding Path=OpenTemplateEditionCommand}"
+                Content="Edit templates" />
+            <pages:HighlightBarsView
+                Grid.Column="0"
+                Margin="0 64 0 34"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Stretch" />
+            <GridSplitter
+                Grid.Column="1"
+                Width="5"
+                HorizontalAlignment="Stretch" />
+            <Grid Grid.Column="2">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <GroupBox
+                        Header="SEARCHES"
+                        BorderThickness="0"
+                        Style="{DynamicResource MaterialDesignGroupBox}">
+                        <pages:SearchPanelView Margin="-9" />
+                    </GroupBox>
+                    <GroupBox
+                        Grid.Row="1"
+                        Header="FILTERS"
+                        BorderThickness="0"
+                        Style="{DynamicResource MaterialDesignGroupBox}">
+                        <pages:FilterPanelView Margin="-9" />
+                    </GroupBox>
+                </Grid>
+            </Grid>
+        </Grid>
+    </controls:LoadingPanel>
+</Grid>

@@ -1,0 +1,35 @@
+[
+  {
+    "pattern": "Starting Launcher host",
+    "typeColor": "DarkGray",
+    "typeName": "Start",
+    "details": "Démarrage de l'instrument"
+  },
+  {
+    "pattern": "Navigated to id (.*)",
+    "typeColor": "DodgerBlue",
+    "typeName": "Navigation",
+    "details": "Navigation vers l'écran '{0}'"
+  },
+  {
+    "pattern": "Click on (.*)",
+    "typeColor": "PaleVioletRed",
+    "typeName": "ButtonClick",
+    "details": "Clic sur le bouton '{0}'"
+  },
+  {
+    "pattern": "ProcessInternalMessage Message='RunNewSampleAssaysRequest",
+    "module": "BioCore",
+    "typeColor": "Gray",
+    "typeName": "BusinessProcessing",
+    "subpatterns": [ "db-insert: PatientDeterminationRun\\[([0-9]*)\\]\\(([a-zA-Z0-9]*),([a-zA-Z0-9]*),.*\\)" ],
+    "details": "Lancement analyses: ['{1}' sur le dossier '{2}']"
+  },
+  {
+    "pattern": "ProcessInternalMessage Message='((?:Run|Launch|Unload|Export|Edit|Create|Save|Send|Update|Open|Close)[a-zA-Z0-9]*)",
+    "module": "BioCore",
+    "typeColor": "Gray",
+    "typeName": "BusinessProcessing",
+    "details": "Traitement du message '{0}'"
+  }
+]

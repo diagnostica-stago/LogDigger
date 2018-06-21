@@ -1,0 +1,76 @@
+﻿<Grid
+    x:Class="LogDigger.Gui.Views.SettingsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:core="clr-namespace:LogDigger.Gui.ViewModels.Core"
+    xmlns:settings="clr-namespace:LogDigger.Gui.ViewModels.Settings"
+    Width="400"
+    d:DataContext="{d:DesignInstance settings:SettingsVm}"
+    d:DesignHeight="300"
+    d:DesignWidth="300"
+    mc:Ignorable="d">
+    <Grid.RowDefinitions>
+        <RowDefinition Height="*" />
+        <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+    <StackPanel Margin="20">
+        <ComboBox
+            md:HintAssist.Hint="Default date sort direction"
+            md:HintAssist.IsFloating="True"
+            ItemsSource="{Binding Path=AllSortDirections}"
+            SelectedItem="{Binding Path=DateSortDirection}" />
+        <TextBox
+            Margin="0 20 0 0"
+            md:HintAssist.Hint="Notepad++ path"
+            md:HintAssist.IsFloating="True"
+            Text="{Binding Path=NotepadPath}" />
+        <TextBlock Margin="0 20 0 0" TextWrapping="Wrap">
+            <Run Text="Log file path (click on the link to open, right click for more options): " />
+        </TextBlock>
+        <Button
+            Height="{x:Static system:Double.NaN}"
+            MaxHeight="300"
+            Margin="0 5 0 0"
+            HorizontalAlignment="Left"
+            Command="{Binding Path=OpenLogFileCommand}"
+            Style="{DynamicResource MaterialDesignFlatButton}">
+            <TextBlock Text="{x:Static core:AppUtils.LogFilePath}" TextWrapping="Wrap" />
+            <Button.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Command="{Binding Path=CopyLogPathCommand}" Header="Copy path" />
+                    <MenuItem Command="{Binding Path=OpenParentFolderCommand}" Header="Open folder" />
+                </ContextMenu>
+            </Button.ContextMenu>
+        </Button>
+        <Button
+            Height="30"
+            Margin="0 20 0 0"
+            HorizontalAlignment="Stretch"
+            Command="{Binding Path=SubmitBugReportCommand}"
+            Content="Submit a bug report"
+            Style="{DynamicResource MaterialDesignRaisedButton}" />
+        <Button
+            Height="30"
+            Margin="0 20 0 0"
+            HorizontalAlignment="Stretch"
+            Command="{Binding Path=ShowChangeLogCommand}"
+            Content="Show changelog"
+            Style="{DynamicResource MaterialDesignRaisedButton}" />
+    </StackPanel>
+    <Button
+        Grid.Row="1"
+        Margin="20"
+        Command="{x:Static md:DialogHost.CloseDialogCommand}"
+        IsCancel="True"
+        Style="{DynamicResource MaterialDesignFlatButton}">
+        <Button.CommandParameter>
+            <system:Boolean>False</system:Boolean>
+        </Button.CommandParameter>
+        OK
+    </Button>
+</Grid>
+

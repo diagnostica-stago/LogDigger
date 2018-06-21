@@ -1,0 +1,51 @@
+﻿<Grid
+    x:Class="LogDigger.Gui.Views.Pages.FilterAndSearchPanelView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="clr-namespace:LogDigger.Gui.Views.Pages"
+    xmlns:all="clr-namespace:LogDigger.Gui.ViewModels.Pages.All"
+    d:DataContext="{d:DesignInstance all:AllEntriesPageVm}"
+    d:DesignHeight="300"
+    d:DesignWidth="300"
+    mc:Ignorable="d">
+    <Grid.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="CommonDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Grid.Resources>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+    <GroupBox
+        Grid.Row="0"
+        Header="SEARCHES"
+        BorderThickness="0"
+        Style="{DynamicResource MaterialDesignGroupBox}">
+        <pages:SearchPanelView Margin="-9" />
+    </GroupBox>
+    <GroupBox
+        Grid.Row="1"
+        BorderThickness="0"
+        Style="{DynamicResource MaterialDesignGroupBox}">
+        <GroupBox.Header>
+            <TextBlock Foreground="White">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="FILTERS ({0}/{1})">
+                        <Binding Path="FilteredEntries.Count" />
+                        <Binding Path="AllEntries.Count" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+        </GroupBox.Header>
+        <GroupBox.Resources>
+            <Style BasedOn="{StaticResource LightGroupBoxStyle}" TargetType="{x:Type GroupBox}" />
+        </GroupBox.Resources>
+        <pages:FilterPanelView Margin="-9" />
+    </GroupBox>
+</Grid>
+
